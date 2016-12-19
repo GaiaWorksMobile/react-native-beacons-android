@@ -14,10 +14,6 @@ const tramissionSupport = {
   5: 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER_MULTIPLE_ADVERTISEMENTS'
 }
 
-const setHardwareEqualityEnforced = (e) => {
-  beaconsAndroid.setHardwareEqualityEnforced(e)
-}
-
 const detectIBeacons = () => {
   beaconsAndroid.addParser(PARSER_IBEACON)
 }
@@ -42,28 +38,20 @@ const setForegroundScanPeriod = (period) => {
   beaconsAndroid.setForegroundScanPeriod(period)
 }
 
-const getRangedRegions = () => new Promise((resolve, reject) => {
-  beaconsAndroid.getRangedRegions(resolve)
-})
-
-const getMonitoredRegions = () => new Promise((resolve, reject) => {
-  beaconsAndroid.getMonitoredRegions(resolve)
-})
-
 const checkTransmissionSupported = () => new Promise((resolve, reject) => {
   beaconsAndroid.checkTransmissionSupported(status => resolve(tramissionSupport[status]))
 })
 
-const startMonitoringForRegion = (region) => new Promise((resolve, reject) => {
-  beaconsAndroid.startMonitoring(region.identifier, region.uuid, region.minor, region.major, resolve, reject)
+const startMonitoringForRegion = (regionId, beaconsUUID) => new Promise((resolve, reject) => {
+  beaconsAndroid.startMonitoring(regionId, beaconsUUID, resolve, reject)
 })
 
 const startRangingBeaconsInRegion = (regionId, beaconsUUID) => new Promise((resolve, reject) => {
   beaconsAndroid.startRanging(regionId, beaconsUUID, resolve, reject)
 })
 
-const stopMonitoringForRegion = (region) => new Promise((resolve, reject) => {
-  beaconsAndroid.stopMonitoring(region.identifier, region.uuid, region.minor, region.major, resolve, reject)
+const stopMonitoringForRegion = (regionId, beaconsUUID) => new Promise((resolve, reject) => {
+  beaconsAndroid.stopMonitoring(regionId, beaconsUUID, resolve, reject)
 })
 
 const stopRangingBeaconsInRegion = (regionId, beaconsUUID) => new Promise((resolve, reject) => {
@@ -71,7 +59,6 @@ const stopRangingBeaconsInRegion = (regionId, beaconsUUID) => new Promise((resol
 })
 
 module.exports = {
-  setHardwareEqualityEnforced,
   detectIBeacons,
   detectEstimotes,
   detectCustomBeaconLayout,
@@ -79,8 +66,6 @@ module.exports = {
   setBackgroundBetweenScanPeriod,
   setForegroundScanPeriod,
   checkTransmissionSupported,
-  getRangedRegions,
-  getMonitoredRegions,
   startMonitoringForRegion,
   startRangingBeaconsInRegion,
   stopMonitoringForRegion,
