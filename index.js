@@ -22,6 +22,10 @@ const detectIBeacons = () => {
   beaconsAndroid.addParser(PARSER_IBEACON)
 }
 
+const removeBlueTooth = () => {
+  beaconsAndroid.removeParser(PARSER_IBEACON)
+}
+
 const detectEstimotes = () => {
   beaconsAndroid.addParser(PARSER_ESTIMOTE)
 }
@@ -73,6 +77,7 @@ const stopRangingBeaconsInRegion = (region) => new Promise((resolve, reject) => 
 module.exports = {
   setHardwareEqualityEnforced,
   detectIBeacons,
+  removeBlueTooth,  
   detectEstimotes,
   detectCustomBeaconLayout,
   setBackgroundScanPeriod,
