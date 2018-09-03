@@ -76,12 +76,18 @@ public class BeaconsAndroidModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void addParser(String parser) {
         Log.d(LOG_TAG, "addParser - started");
+        if (mBeaconManager == null) {
+            this.mBeaconManager = BeaconManager.getInstanceForApplication(mApplicationContext);
+        }
         mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(parser));
     }
 
     @ReactMethod
     public void removeParser(String parser) {
         Log.d(LOG_TAG, "removeParser - started");
+        if (mBeaconManager == null) {
+            this.mBeaconManager = BeaconManager.getInstanceForApplication(mApplicationContext);
+        }
         mBeaconManager.getBeaconParsers().remove(new BeaconParser().setBeaconLayout(parser));
     }
 
@@ -243,6 +249,10 @@ public class BeaconsAndroidModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onBeaconServiceConnect() {
+                if (mBeaconManager == null) {
+                    mBeaconManager = BeaconManager.getInstanceForApplication(mApplicationContext);
+                }
+                mBeaconManager.setScannerInSameProcess(true);
                 mBeaconManager.addRangeNotifier(new RangeNotifier(){
 
                     @Override

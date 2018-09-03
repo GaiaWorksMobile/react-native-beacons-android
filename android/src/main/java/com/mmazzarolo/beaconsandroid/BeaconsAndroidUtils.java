@@ -20,7 +20,7 @@ import java.util.Collection;
  */
 
 public class BeaconsAndroidUtils {
-    
+
     /**
      * 向js端发送消息
      * @param reactContext
@@ -29,10 +29,10 @@ public class BeaconsAndroidUtils {
      */
     public static void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
         reactContext
-        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-        .emit(eventName, params);
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
-    
+
     /**
      * 获取Region的对象
      * @param regionId
@@ -43,7 +43,7 @@ public class BeaconsAndroidUtils {
         Identifier id1 = (beaconUuid == null) ? null : Identifier.parse(beaconUuid);
         return new Region(regionId, id1, null, null);
     }
-    
+
     /**
      * 获取Region的对象（含有主要值和次要值）
      * @param regionId
@@ -56,7 +56,7 @@ public class BeaconsAndroidUtils {
         Identifier id1 = (beaconUuid == null) ? null : Identifier.parse(beaconUuid);
         return new Region(regionId, id1, Identifier.fromInt(major), Identifier.fromInt(minor));
     }
-    
+
     /**
      * 返回Rangin扫描的信息
      * @param beacons
@@ -82,7 +82,7 @@ public class BeaconsAndroidUtils {
         map.putArray("beacons", a);
         return map;
     }
-    
+
     /**
      * 判断距离
      * @param distance
@@ -99,8 +99,8 @@ public class BeaconsAndroidUtils {
             return "far";
         }
     }
-    
-    
+
+
     /**
      * 返回Monitor扫描的信息
      * @param region
@@ -115,4 +115,3 @@ public class BeaconsAndroidUtils {
         return map;
     }
 }
-
